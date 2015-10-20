@@ -56,10 +56,8 @@ function getEncounterMultiplier() {
     if (monsterCount > 2 && monsterCount < 7) { multiplierIndex = 3; }
     if (monsterCount > 6 && monsterCount < 11) { multiplierIndex = 4; }
     if (monsterCount >= 15) { multiplierIndex = 5; }
-    console.log('Monster count ' + monsterCount);
 
     // Multiplier modified by number of player characters:
-    console.log('Character count ' + characters.length);
     if (characters.length < 3) {
         if (multiplierIndex > 0) {
             multiplierIndex--;
@@ -97,6 +95,31 @@ var encounterDifficultyByCharLevel = {
     20: [2800, 5700, 8500, 12700]
 };
 
+// See DMG p. 84.
+// This is XP of encounters between long rests, per character, based on character level.
+var xpPerDay = {
+    1: 300,
+    2: 600,
+    3: 1200,
+    4: 1700,
+    5: 3500,
+    6: 4000,
+    7: 5000,
+    8: 6000,
+    9: 7500,
+    10: 9000,
+    11: 10500,
+    12: 11500,
+    13: 13500,
+    14: 15000,
+    15: 18000,
+    16: 20000,
+    17: 25000,
+    18: 27000,
+    19: 30000,
+    20: 40000
+};
+
 
 var characters = [];
 
@@ -122,6 +145,14 @@ function numSort(a, b) {
     return a - b;
 }
 
+function getXpPerDay() {
+    var xp = 0;
+    for (var i = 0, limit = characters.length; i < limit; i++) {
+        xp = xp + xpPerDay[characters[i]];
+    }
+    return xp;
+}
+
 function calculateXpThresholds() {
     var easyTotal = 0;
     var mediumTotal = 0;
@@ -137,7 +168,6 @@ function calculateXpThresholds() {
         deadlyTotal += encounterDifficultyByCharLevel[characters[i]][3];
     }
     var m = getEncounterMultiplier();
-    console.log('enc mult ' + m);
     document.getElementById('easyxp').innerHTML = formatN(easyTotal * m);
     document.getElementById('mediumxp').innerHTML = formatN(mediumTotal * m);
     document.getElementById('hardxp').innerHTML = formatN(hardTotal * m);
@@ -160,6 +190,7 @@ function clearCharacters() {
     document.getElementById('mediumxp').innerHTML = '';
     document.getElementById('hardxp').innerHTML = '';
     document.getElementById('deadlyxp').innerHTML = '';
+    document.getElementById('xpperday').innerHTML = '';
 }
 
 function displayCharacterList() {
@@ -168,4 +199,5 @@ function displayCharacterList() {
         charStr = charStr + characters[i] + ' ';
     }
     document.getElementById('characters').innerHTML = charStr;
+    document.getElementById('xpperday').innerHTML = numCommaSep(getXpPerDay());
 }
