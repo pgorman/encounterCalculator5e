@@ -1,3 +1,12 @@
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function numCommaSep(n) {
+    // Format numbers like 1,000,000.
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 // See DMG p. 275
 var monsterXpToCr = {
     10: 0,
@@ -103,6 +112,9 @@ function calculateXpThresholds() {
     var mediumTotal = 0;
     var hardTotal = 0;
     var deadlyTotal = 0;
+    function formatN(n) {
+        return numCommaSep(Math.floor(n));
+    }
     for (var i = 0, limit = characters.length; i < limit; i++) {
         easyTotal += encounterDifficultyByCharLevel[characters[i]][0];
         mediumTotal += encounterDifficultyByCharLevel[characters[i]][1];
@@ -110,10 +122,10 @@ function calculateXpThresholds() {
         deadlyTotal += encounterDifficultyByCharLevel[characters[i]][3];
     }
     var m = getEncounterMultiplier();
-    document.getElementById('easyxp').innerHTML = easyTotal * m;
-    document.getElementById('mediumxp').innerHTML = mediumTotal * m;
-    document.getElementById('hardxp').innerHTML = hardTotal * m;
-    document.getElementById('deadlyxp').innerHTML = deadlyTotal * m;
+    document.getElementById('easyxp').innerHTML = formatN(easyTotal * m);
+    document.getElementById('mediumxp').innerHTML = formatN(mediumTotal * m);
+    document.getElementById('hardxp').innerHTML = formatN(hardTotal * m);
+    document.getElementById('deadlyxp').innerHTML = formatN(deadlyTotal * m);
 }
 
 function addCharacter() {
@@ -135,7 +147,7 @@ function clearCharacters() {
 }
 
 function displayCharacterList() {
-    charStr = intToStr(characters.length).toUpperCase() + ' characters, levels ';
+    charStr = capitalize(intToStr(characters.length)) + ' characters, levels ';
     for (var i = 0, limit = characters.length; i < limit; i++) {
         charStr = charStr + characters[i] + ' ';
     }
