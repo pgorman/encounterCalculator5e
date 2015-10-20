@@ -47,15 +47,30 @@ var monsterXpToCr = {
 
 // See DMG p. 82
 function getEncounterMultiplier() {
-//////////////// FIX THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    var n = characters.length;
-    // Number of monsters:
-    if (n == 1) { return 1; }
-    if (n = 2) { return 1.5; }
-    if (n > 2 && n < 7) { return 2; }
-    if (n > 6 && n < 11) { return 2.5; }
-    if (n < 15) { return 3; }
-    return 4;
+    var multipliers = [0.5, 1, 1.5, 2, 2.5, 3, 4];
+    var multiplierIndex = 1;
+
+    // Multiplier modified by number of monsters:
+    var monsterCount = 1;
+    if (monsterCount == 2) { multiplierIndex = 2; }
+    if (monsterCount > 2 && monsterCount < 7) { multiplierIndex = 3; }
+    if (monsterCount > 6 && monsterCount < 11) { multiplierIndex = 4; }
+    if (monsterCount >= 15) { multiplierIndex = 5; }
+    console.log('Monster count ' + monsterCount);
+
+    // Multiplier modified by number of player characters:
+    console.log('Character count ' + characters.length);
+    if (characters.length < 3) {
+        if (multiplierIndex > 0) {
+            multiplierIndex--;
+        }
+    } else if (characters.length > 5) {
+        if (multiplierIndex < 4) {
+            multiplierIndex++;
+        }
+    }
+
+    return multipliers[multiplierIndex];
 };
 
 // See DMG p 82
@@ -122,6 +137,7 @@ function calculateXpThresholds() {
         deadlyTotal += encounterDifficultyByCharLevel[characters[i]][3];
     }
     var m = getEncounterMultiplier();
+    console.log('enc mult ' + m);
     document.getElementById('easyxp').innerHTML = formatN(easyTotal * m);
     document.getElementById('mediumxp').innerHTML = formatN(mediumTotal * m);
     document.getElementById('hardxp').innerHTML = formatN(hardTotal * m);
