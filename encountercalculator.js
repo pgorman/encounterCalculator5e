@@ -120,6 +120,59 @@ var xpPerDay = {
     20: 40000
 };
 
+// See DMG p. 274
+// These are keyed by challenge rating.
+var monsterStats = {
+    0: {
+        prof: '+2',
+        ac: '<= 13',
+        hp: '1-6',
+        attack: '<= +3',
+        damage: '0-1',
+        save: '<= 13'
+    },
+    0.125: {
+        prof: '+2',
+        ac: '13',
+        hp: '7-35',
+        attack: '+3',
+        damage: '2-3',
+        save: '13'
+    },
+    0.25: {
+        prof: '+2',
+        ac: '13',
+        hp: '36-49',
+        attack: '+3',
+        damage: '4-5',
+        save: '13'
+    },
+    0.5: {
+        prof: '+2',
+        ac: '13',
+        hp: '50-70',
+        attack: '+3',
+        damage: '6-8',
+        save: '13'
+    },
+    1: {
+        prof: '+2',
+        ac: '13',
+        hp: '71-85',
+        attack: '+3',
+        damage: '9-14',
+        save: '13'
+    },
+    2: {
+        prof: '+2',
+        ac: '13',
+        hp: '86-100',
+        attack: '+3',
+        damage: '15-20',
+        save: '13'
+    },
+};
+
 
 var characters = [];
 
@@ -181,6 +234,8 @@ function addCharacter() {
     characters.sort(numSort);
     calculateXpThresholds();
     displayCharacterList();
+    // Test:
+    console.log(monsterStats[0.125].save);
 }
 
 function clearCharacters() {
