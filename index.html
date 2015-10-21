@@ -13,7 +13,7 @@
 
 <h1>D&D 5e Encounter Calculator</h1>
 
-<h2>1. Add Player Characters</h2>
+<h2>Player Characters Encounter Level Calculator</h2>
 
 <form>
 <label>Character Level
@@ -59,6 +59,53 @@
 <h3>Total XP Per Day from Encounters</h3>
 <p id="xpperday"></p>
 <p>The game assumes about six to eight medium or hard encounters per day (i.e. between long rests).</p>
+
+<h2>Monster XP Calculator</h2>
+
+<form>
+<label>Monster CR
+<select id="cr">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+<option>11</option>
+<option>12</option>
+<option>13</option>
+<option>14</option>
+<option>15</option>
+<option>16</option>
+<option>17</option>
+<option>18</option>
+<option>19</option>
+<option>20</option>
+<option>21</option>
+<option>22</option>
+<option>23</option>
+<option>24</option>
+<option>25</option>
+<option>26</option>
+<option>27</option>
+<option>28</option>
+<option>29</option>
+<option>30</option>
+</select>
+</label>
+<button type="button" onclick="addMonster(cr);">Add Monster</button>
+</form>
+
+<form>
+<button type="button" onclick="clearAllMonsters();">Clear All Monster</button>
+</form>
+
+<ul id="monsterlist">
+</ul>
 
 </body>
 </html>

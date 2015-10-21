@@ -7,44 +7,6 @@ function numCommaSep(n) {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-// See DMG p. 275
-var monsterXpToCr = {
-    10: 0,
-    25: 0.125,
-    50: 0.25,
-    100: 0.5,
-    200: 1,
-    450: 2,
-    700: 3,
-    1100: 4,
-    1800: 5,
-    2300: 6,
-    2900: 7,
-    3900: 8,
-    5000: 9,
-    5900: 10,
-    7200: 11,
-    8400: 12,
-    10000: 13,
-    11500: 14,
-    13000: 15,
-    15000: 16,
-    18000: 17,
-    20000: 18,
-    22000: 19,
-    25000: 20,
-    33000: 21,
-    41000: 22,
-    50000: 23,
-    62000: 24,
-    75000: 25,
-    90000: 26,
-    105000: 27,
-    120000: 28,
-    135000: 29,
-    155000: 30
-};
-
 // See DMG p. 82
 function getEncounterMultiplier() {
     var multipliers = [0.5, 1, 1.5, 2, 2.5, 3, 4];
@@ -120,7 +82,7 @@ var xpPerDay = {
     20: 40000
 };
 
-// See DMG p. 274
+// See DMG p. 274-275
 // These are keyed by challenge rating.
 var monsterStats = {
     0: {
@@ -129,7 +91,8 @@ var monsterStats = {
         hp: '1-6',
         attack: '<= +3',
         damage: '0-1',
-        save: '<= 13'
+        save: '<= 13',
+        xp: 10
     },
     0.125: {
         prof: '+2',
@@ -137,7 +100,8 @@ var monsterStats = {
         hp: '7-35',
         attack: '+3',
         damage: '2-3',
-        save: '13'
+        save: '13',
+        xp: 25
     },
     0.25: {
         prof: '+2',
@@ -145,7 +109,8 @@ var monsterStats = {
         hp: '36-49',
         attack: '+3',
         damage: '4-5',
-        save: '13'
+        save: '13',
+        xp: 50
     },
     0.5: {
         prof: '+2',
@@ -153,7 +118,8 @@ var monsterStats = {
         hp: '50-70',
         attack: '+3',
         damage: '6-8',
-        save: '13'
+        save: '13',
+        xp: 100
     },
     1: {
         prof: '+2',
@@ -161,7 +127,8 @@ var monsterStats = {
         hp: '71-85',
         attack: '+3',
         damage: '9-14',
-        save: '13'
+        save: '13',
+        xp: 200
     },
     2: {
         prof: '+2',
@@ -169,7 +136,8 @@ var monsterStats = {
         hp: '86-100',
         attack: '+3',
         damage: '15-20',
-        save: '13'
+        save: '13',
+        xp: 450
     },
     3: {
         prof: '+2',
@@ -177,7 +145,8 @@ var monsterStats = {
         hp: '101-115',
         attack: '+4',
         damage: '21-26',
-        save: '13'
+        save: '13',
+        xp: 700
     },
     4: {
         prof: '+2',
@@ -185,7 +154,8 @@ var monsterStats = {
         hp: '116-130',
         attack: '+5',
         damage: '27-32',
-        save: '14'
+        save: '14',
+        xp: 1100
     },
     5: {
         prof: '+3',
@@ -193,7 +163,8 @@ var monsterStats = {
         hp: '131-145',
         attack: '+6',
         damage: '33-38',
-        save: '15'
+        save: '15',
+        xp: 1800
     },
     6: {
         prof: '+3',
@@ -201,7 +172,8 @@ var monsterStats = {
         hp: '146-160',
         attack: '+6',
         damage: '39-44',
-        save: '15'
+        save: '15',
+        xp: 2300
     },
     7: {
         prof: '+3',
@@ -209,7 +181,8 @@ var monsterStats = {
         hp: '161-175',
         attack: '+6',
         damage: '45-50',
-        save: '15'
+        save: '15',
+        xp: 2900
     },
     8: {
         prof: '+3',
@@ -217,7 +190,8 @@ var monsterStats = {
         hp: '175-190',
         attack: '+7',
         damage: '51-56',
-        save: '16'
+        save: '16',
+        xp: 3900
     },
     9: {
         prof: '+4',
@@ -225,7 +199,8 @@ var monsterStats = {
         hp: '191-205',
         attack: '+7',
         damage: '57-62',
-        save: '16'
+        save: '16',
+        xp: 5000
     },
     10: {
         prof: '+4',
@@ -233,7 +208,8 @@ var monsterStats = {
         hp: '206-220',
         attack: '+7',
         damage: '63-68',
-        save: '16'
+        save: '16',
+        xp: 5900
     },
     11: {
         prof: '+4',
@@ -241,7 +217,8 @@ var monsterStats = {
         hp: '221-235',
         attack: '+8',
         damage: '69-74',
-        save: '17'
+        save: '17',
+        xp: 7200
     },
     12: {
         prof: '+4',
@@ -249,10 +226,174 @@ var monsterStats = {
         hp: '236-250',
         attack: '+8',
         damage: '75-80',
-        save: '17'
+        save: '17',
+        xp: 8400
+    },
+    13: {
+        prof: '+5',
+        ac: '18',
+        hp: '251-265',
+        attack: '+8',
+        damage: '81-86',
+        save: '18',
+        xp: 10000
+    },
+    14: {
+        prof: '+5',
+        ac: '18',
+        hp: '266-280',
+        attack: '+8',
+        damage: '87-92',
+        save: '18',
+        xp: 11500
+    },
+    15: {
+        prof: '+5',
+        ac: '18',
+        hp: '281-295',
+        attack: '+8',
+        damage: '93-98',
+        save: '18',
+        xp: 13000
+    },
+    16: {
+        prof: '+5',
+        ac: '18',
+        hp: '296-310',
+        attack: '+9',
+        damage: '99-104',
+        save: '18',
+        xp: 15000
+    },
+    17: {
+        prof: '+6',
+        ac: '18',
+        hp: '311-325',
+        attack: '+10',
+        damage: '105-110',
+        save: '19',
+        xp: 18000
+    },
+    18: {
+        prof: '+6',
+        ac: '19',
+        hp: '326-340',
+        attack: '+10',
+        damage: '111-116',
+        save: '19',
+        xp: 20000
+    },
+    19: {
+        prof: '+6',
+        ac: '19',
+        hp: '341-355',
+        attack: '+10',
+        damage: '117-122',
+        save: '19',
+        xp: 22000
+    },
+    20: {
+        prof: '+6',
+        ac: '19',
+        hp: '356-400',
+        attack: '+10',
+        damage: '123-140',
+        save: '19',
+        xp: 24000
+    },
+    21: {
+        prof: '+7',
+        ac: '19',
+        hp: '401-445',
+        attack: '+11',
+        damage: '141-158',
+        save: '20',
+        xp: 33000
+    },
+    22: {
+        prof: '+7',
+        ac: '19',
+        hp: '446-490',
+        attack: '+11',
+        damage: '159-176',
+        save: '20',
+        xp: 41000
+    },
+    23: {
+        prof: '+7',
+        ac: '19',
+        hp: '491-535',
+        attack: '+11',
+        damage: '177-194',
+        save: '20',
+        xp: 50000
+    },
+    24: {
+        prof: '+7',
+        ac: '19',
+        hp: '536-580',
+        attack: '+12',
+        damage: '195-212',
+        save: '21',
+        xp: 62000
+    },
+    25: {
+        prof: '+8',
+        ac: '19',
+        hp: '581-625',
+        attack: '+12',
+        damage: '213-230',
+        save: '21',
+        xp: 75000
+    },
+    26: {
+        prof: '+8',
+        ac: '19',
+        hp: '626-670',
+        attack: '+12',
+        damage: '231-248',
+        save: '21',
+        xp: 90000
+    },
+    27: {
+        prof: '+8',
+        ac: '19',
+        hp: '671-715',
+        attack: '+13',
+        damage: '249-266',
+        save: '22',
+        xp: 105000
+    },
+    28: {
+        prof: '+8',
+        ac: '19',
+        hp: '719-760',
+        attack: '+13',
+        damage: '267-284',
+        save: '22',
+        xp: 120000
+    },
+    29: {
+        prof: '+9',
+        ac: '19',
+        hp: '761-805',
+        attack: '+13',
+        damage: '285-302',
+        save: '22',
+        xp: 135000
+    },
+    30: {
+        prof: '+9',
+        ac: '19',
+        hp: '806-850',
+        attack: '+14',
+        damage: '303-320',
+        save: '23',
+        xp: 15500
     },
 };
 
+//////////// Player Characters ////////////
 
 var characters = [];
 
@@ -314,8 +455,6 @@ function addCharacter() {
     characters.sort(numSort);
     calculateXpThresholds();
     displayCharacterList();
-    // Test:
-    console.log(monsterStats[0.125].save);
 }
 
 function clearCharacters() {
@@ -335,4 +474,23 @@ function displayCharacterList() {
     }
     document.getElementById('characters').innerHTML = charStr;
     document.getElementById('xpperday').innerHTML = numCommaSep(getXpPerDay());
+}
+
+//////////// Monsters ////////////
+
+var monsters = [];
+
+function addMonster() {
+    var l = document.getElementById('cr');
+    var monsterCr = l.options[l.selectedIndex].text;
+    monsters.push(monsterStats[monsterCr]);
+    displayMonsterList();
+}
+
+function clearAllMonsters() {
+    monsters = [];
+    document.getElementById('monsters').innerHTML = '';
+}
+
+function displayMonsterList() {
 }
