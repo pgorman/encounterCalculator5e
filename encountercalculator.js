@@ -171,6 +171,86 @@ var monsterStats = {
         damage: '15-20',
         save: '13'
     },
+    3: {
+        prof: '+2',
+        ac: '13',
+        hp: '101-115',
+        attack: '+4',
+        damage: '21-26',
+        save: '13'
+    },
+    4: {
+        prof: '+2',
+        ac: '14',
+        hp: '116-130',
+        attack: '+5',
+        damage: '27-32',
+        save: '14'
+    },
+    5: {
+        prof: '+3',
+        ac: '15',
+        hp: '131-145',
+        attack: '+6',
+        damage: '33-38',
+        save: '15'
+    },
+    6: {
+        prof: '+3',
+        ac: '15',
+        hp: '146-160',
+        attack: '+6',
+        damage: '39-44',
+        save: '15'
+    },
+    7: {
+        prof: '+3',
+        ac: '15',
+        hp: '161-175',
+        attack: '+6',
+        damage: '45-50',
+        save: '15'
+    },
+    8: {
+        prof: '+3',
+        ac: '16',
+        hp: '175-190',
+        attack: '+7',
+        damage: '51-56',
+        save: '16'
+    },
+    9: {
+        prof: '+4',
+        ac: '16',
+        hp: '191-205',
+        attack: '+7',
+        damage: '57-62',
+        save: '16'
+    },
+    10: {
+        prof: '+4',
+        ac: '17',
+        hp: '206-220',
+        attack: '+7',
+        damage: '63-68',
+        save: '16'
+    },
+    11: {
+        prof: '+4',
+        ac: '17',
+        hp: '221-235',
+        attack: '+8',
+        damage: '69-74',
+        save: '17'
+    },
+    12: {
+        prof: '+4',
+        ac: '17',
+        hp: '236-250',
+        attack: '+8',
+        damage: '75-80',
+        save: '17'
+    },
 };
 
 
