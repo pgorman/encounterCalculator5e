@@ -8,12 +8,13 @@ function numCommaSep(n) {
 }
 
 // See DMG p. 82
+// Encounter multiplier based on number of PC's and number of monsters:
 function getEncounterMultiplier() {
     var multipliers = [0.5, 1, 1.5, 2, 2.5, 3, 4];
     var multiplierIndex = 1;
 
     // Multiplier modified by number of monsters:
-    var monsterCount = 1;
+    var monsterCount = monsters.length;
     if (monsterCount == 2) { multiplierIndex = 2; }
     if (monsterCount > 2 && monsterCount < 7) { multiplierIndex = 3; }
     if (monsterCount > 6 && monsterCount < 11) { multiplierIndex = 4; }
@@ -84,7 +85,7 @@ var xpPerDay = {
 
 // See DMG p. 274-275
 // These are keyed by challenge rating.
-var monsterStats = {
+var monsterTemplates = {
     0: {
         prof: '+2',
         ac: '<= 13',
@@ -479,20 +480,48 @@ function displayCharacterList() {
 //////////// Monsters ////////////
 
 var monsters = [];
+// Give added monsters a unique id so we can refer to them later:
 var monsterIdCount = 0;
 
+function getEncounterXp() {
+    var xp = 0;
+    for (var i = 0, limit = monsters.length; i < limit; i++) {
+        xp += monsters[i].xp;
+    }
+    return Math.floor(xp * getEncounterMultiplier());
+}
+
 function addMonster() {
-    var l = document.getElementById('cr');
-    var monsterCr = l.options[l.selectedIndex].text;
-    monsters.push(monsterStats[monsterCr]);
+    var l = document.getElementById('monstercr');
+    var cr = l.options[l.selectedIndex].text;
+    var m = {
+        mId: 'm' + monsterIdCount,
+        cr: cr,
+        prof: monsterTemplates[cr].prof,
+        ac: monsterTemplates[cr].ac,
+        hp: monsterTemplates[cr].hp,
+        attack: monsterTemplates[cr].attack,
+        damage: monsterTemplates[cr].damage,
+        save: monsterTemplates[cr].save,
+        xp: monsterTemplates[cr].xp
+    };
+    monsters.push(m);
     monsterIdCount++;
-    displayMonsterList();
+    displayMonster(m);
+    document.getElementById('encounterxp').innerHTML = getEncounterXp();
 }
 
 function clearAllMonsters() {
     monsters = [];
-    document.getElementById('monsters').innerHTML = '';
+    document.getElementById('monsterlist').innerHTML = '';
+    document.getElementById('encounterxp').innerHTML = '';
 }
 
-function displayMonsterList() {
+function displayMonster(m) {
+    var parentDiv = document.getElementById('monsterlist');
+    var child = document.createElement('p');
+    child.id = 'm' + m.mId;
+    parentDiv.appendChild(child);
+    var mStr = 'CR ' + m.cr + '; Prof ' + m.prof + '; AC ' + m.ac + '; HP ' + m.hp + '; Attack ' +  m.attack + '; Damage ' + m.damage + '; Save ' + m.save;
+    child.innerHTML = mStr;
 }

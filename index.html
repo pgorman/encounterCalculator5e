@@ -60,11 +60,17 @@
 <p id="xpperday"></p>
 <p>The game assumes about six to eight medium or hard encounters per day (i.e. between long rests).</p>
 
-<h2>Monster XP Calculator</h2>
+<h2>Encounter XP Calculator</h2>
+
+<p>Total Encounter XP: <span id="encounterxp" style="font-weight:bold;">0</span></p>
 
 <form>
 <label>Monster CR
-<select id="cr">
+<select id="monstercr">
+<option>0</option>
+<option>0.125</option>
+<option>0.25</option>
+<option>0.5</option>
 <option>1</option>
 <option>2</option>
 <option>3</option>
@@ -97,15 +103,15 @@
 <option>30</option>
 </select>
 </label>
-<button type="button" onclick="addMonster(cr);">Add Monster</button>
+<button type="button" onclick="addMonster(monstercr);">Add Monster</button>
 </form>
+
+<div id="monsterlist">
+</div>
 
 <form>
 <button type="button" onclick="clearAllMonsters();">Clear All Monster</button>
 </form>
-
-<ul id="monsterlist">
-</ul>
 
 </body>
 </html>
