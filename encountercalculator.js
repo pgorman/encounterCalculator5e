@@ -479,11 +479,13 @@ function displayCharacterList() {
 //////////// Monsters ////////////
 
 var monsters = [];
+var monsterIdCount = 0;
 
 function addMonster() {
     var l = document.getElementById('cr');
     var monsterCr = l.options[l.selectedIndex].text;
     monsters.push(monsterStats[monsterCr]);
+    monsterIdCount++;
     displayMonsterList();
 }
 
