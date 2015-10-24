@@ -2,6 +2,7 @@ body {
     background: #eee;
     color: #111;
     font: 12pt sans-serif;
+    line-height: 1.1em;
     margin-left: 15%;
     margin-right: 15%;
 }
@@ -10,7 +11,35 @@ table {
     border-collapse: collapse;
 }
 
+table th {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
 table td {
     border: 1px solid #444;
+    height: 1.1em;
     padding: 1em;
+}
+
+.addbutton {
+    font-weight: bold;
+}
+
+.delete {
+    color: red;
+    font-weight: bold;
+}
+
+.fineprint {
+    border-top: 1px solid #888;
+    color: #555;
+    font-size: 0.6em;
+    margin-top: 6em;
+    padding: 1em;
+}
+
+.grandtotal {
+    font-size: 1.2em;
+    font-weight: bold;
 }

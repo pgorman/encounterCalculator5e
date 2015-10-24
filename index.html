@@ -13,7 +13,7 @@
 
 <h1>D&amp;D 5e Encounter Calculator</h1>
 
-<p>For a complete explanation of encounter building, see the fifth edition <i>Dungeons Masters Guide</i>, pages 82-85 and 274-281.</p>
+<p>For a complete explanation of encounter building, see the fifth edition <i>Dungeons Master's Guide</i>, pages 82-85 and 274-281.</p>
 
 <h2>1. Player Characters Encounter Level Calculator</h2>
 
@@ -42,10 +42,10 @@
 <option>20</option>
 </select>
 </label>
-<button type="button" onclick="addCharacter(charlevel);">Add Character</button>
+<button type="button" class="addbutton" onclick="addCharacter(charlevel);">Add Character</button>
 </form>
-<p id="characters"></p>
-<button type="button" onclick="clearCharacters();">Clear Characters</button>
+<p id="characters">Zero characters</p>
+<button type="button" onclick="clearCharacters();"><span class="delete">x</span> Clear Characters</button>
 
 <h3>Encounter XP Thresholds</h3>
 <table>
@@ -58,13 +58,11 @@
 </tr>
 </table>
 
-<p>Total XP per day from encounters: <span id="xpperday">0</span></p>
-
-<p>(The game assumes about six to eight medium or hard encounters per day, between long rests).</p>
+<p>Total XP between long rests: <span id="xpperday">0</span></p>
 
 <h2>2. Encounter XP Calculator</h2>
 
-<p>Total encounter difficulty value for party above in XP: <span id="encounterxp" style="font-weight:bold;">0</span></p>
+<p>Total encounter difficulty value for party above in XP: <span id="encounterxp" class="grandtotal">0</span> <span id="encounterdifficulty"></span> (award <span id="awardxp">0</span> XP)</p>
 
 <form>
 <label>Monster CR
@@ -105,17 +103,17 @@
 <option>30</option>
 </select>
 </label>
-<button type="button" onclick="addMonster(monstercr);">Add Monster</button>
+<button type="button" class="addbutton" onclick="addMonster(monstercr);">Add Monster</button>
 </form>
 
 <div id="monsterlist">
 </div>
 
-<form>
-<button type="button" onclick="clearAllMonsters();">Clear All Monster</button>
-</form>
+<p>
+<button type="button" onclick="clearAllMonsters();"><span class="delete">x</span> Clear All Monster</button>
+</p>
 
-<div style="border-top: 1px solid #888; color: #555; font-size: 0.6em; margin-top: 6em; padding: 1em;">
+<div class="fineprint">
 <p>D&amp;D is a registered trademark of Wizards of the Coast. This page is not associated with Wizards of the Coast.</p>
 
 <p>D&amp;D 5e Encounter Calculator copyright &copy; 2015, Paul Gorman<br />
