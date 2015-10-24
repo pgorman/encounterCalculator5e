@@ -478,7 +478,7 @@ function clearCharacters() {
     document.getElementById('mediumxp').innerHTML = '';
     document.getElementById('hardxp').innerHTML = '';
     document.getElementById('deadlyxp').innerHTML = '';
-    document.getElementById('xpperday').innerHTML = '';
+    document.getElementById('xpperday').innerHTML = '0';
     document.getElementById('encounterxp').innerHTML = '0';
 }
 
