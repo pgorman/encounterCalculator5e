@@ -13,21 +13,33 @@ function getEncounterMultiplier() {
     var multipliers = [0.5, 1, 1.5, 2, 2.5, 3, 4];
     var multiplierIndex = 1;
 
-    // Multiplier modified by number of monsters:
-    var monsterCount = monsters.length;
+    // Multiplier modified by number of monsters.
+    // Don't count really weak monsters.
+    var totalXp = 0;
+    for (var i = 0, limit = monsters.length; i < limit; i++) {
+        totalXp += monsters[i].xp;
+    }
+    var avgXp = totalXp / monsters.length;
+    var monsterCount = 0;
+    for (var i = 0, limit = monsters.length; i < limit; i++) {
+        if (monsters[i].xp >= (avgXp * 0.5)) {
+            monsterCount++;
+        }
+    }
     if (monsterCount == 2) { multiplierIndex = 2; }
     if (monsterCount > 2 && monsterCount < 7) { multiplierIndex = 3; }
     if (monsterCount > 6 && monsterCount < 11) { multiplierIndex = 4; }
-    if (monsterCount >= 15) { multiplierIndex = 5; }
+    if (monsterCount > 10 && monsterCount < 15) { multiplierIndex = 5; }
+    if (monsterCount >= 15) { multiplierIndex = 6; }
 
     // Multiplier modified by number of player characters:
     if (characters.length < 3) {
-        if (multiplierIndex > 0) {
-            multiplierIndex--;
+        if (multiplierIndex < multipliers.length - 1) {
+            multiplierIndex++;
         }
     } else if (characters.length > 5) {
-        if (multiplierIndex < 4) {
-            multiplierIndex++;
+        if (multiplierIndex > 0) {
+            multiplierIndex--;
         }
     }
 
@@ -428,25 +440,25 @@ function getXpPerDay() {
     return xp;
 }
 
+function formatN(n) {
+    return numCommaSep(Math.floor(n));
+}
+
 function calculateXpThresholds() {
     var easyTotal = 0;
     var mediumTotal = 0;
     var hardTotal = 0;
     var deadlyTotal = 0;
-    function formatN(n) {
-        return numCommaSep(Math.floor(n));
-    }
     for (var i = 0, limit = characters.length; i < limit; i++) {
         easyTotal += encounterDifficultyByCharLevel[characters[i]][0];
         mediumTotal += encounterDifficultyByCharLevel[characters[i]][1];
         hardTotal += encounterDifficultyByCharLevel[characters[i]][2];
         deadlyTotal += encounterDifficultyByCharLevel[characters[i]][3];
     }
-    var m = getEncounterMultiplier();
-    document.getElementById('easyxp').innerHTML = formatN(easyTotal * m);
-    document.getElementById('mediumxp').innerHTML = formatN(mediumTotal * m);
-    document.getElementById('hardxp').innerHTML = formatN(hardTotal * m);
-    document.getElementById('deadlyxp').innerHTML = formatN(deadlyTotal * m);
+    document.getElementById('easyxp').innerHTML = formatN(easyTotal);
+    document.getElementById('mediumxp').innerHTML = formatN(mediumTotal);
+    document.getElementById('hardxp').innerHTML = formatN(hardTotal);
+    document.getElementById('deadlyxp').innerHTML = formatN(deadlyTotal);
 }
 
 function addCharacter() {
@@ -456,6 +468,7 @@ function addCharacter() {
     characters.sort(numSort);
     calculateXpThresholds();
     displayCharacterList();
+    document.getElementById('encounterxp').innerHTML = formatN(getEncounterXp());
 }
 
 function clearCharacters() {
@@ -466,6 +479,7 @@ function clearCharacters() {
     document.getElementById('hardxp').innerHTML = '';
     document.getElementById('deadlyxp').innerHTML = '';
     document.getElementById('xpperday').innerHTML = '';
+    document.getElementById('encounterxp').innerHTML = '0';
 }
 
 function displayCharacterList() {
@@ -508,13 +522,13 @@ function addMonster() {
     monsters.push(m);
     monsterIdCount++;
     displayMonster(m);
-    document.getElementById('encounterxp').innerHTML = getEncounterXp();
+    document.getElementById('encounterxp').innerHTML = formatN(getEncounterXp());
 }
 
 function clearAllMonsters() {
     monsters = [];
     document.getElementById('monsterlist').innerHTML = '';
-    document.getElementById('encounterxp').innerHTML = '';
+    document.getElementById('encounterxp').innerHTML = '0';
 }
 
 function displayMonster(m) {
